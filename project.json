@@ -2,12 +2,22 @@
   "projectId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67",
   "commands": [
     {
-      "name": "help",
-      "file": "src/commands/help.js"
+      "command": "/help",
+      "description": "Explains that users can open the Mini App to view their points balance and transaction history.",
+      "usage": "/help",
+      "examples": [
+        "User: /help → Bot: Points Wallet helps you view your points balance and transaction history."
+      ],
+      "notes": "Only /start and /help are public commands."
     },
     {
-      "name": "start",
-      "file": "src/commands/start.js"
+      "command": "/start",
+      "description": "Creates or refreshes the Telegram user's Points Wallet profile in MongoDB and sends a Mini App dashboard button.",
+      "usage": "/start",
+      "examples": [
+        "User: /start → Bot: Welcome. Your Points Wallet is ready. Open the Mini App dashboard to view your balance and transaction history."
+      ],
+      "notes": "The dashboard button opens the Mini App served by the same Node service at /app."
     }
   ],
   "aiMessages": [
@@ -18,6 +28,14 @@
     {
       "role": "assistant",
       "content": "Built the Telegram-only Points Wallet Mini App with MongoDB wallet persistence, verified Mini App APIs, polished dashboard UI, dedicated /start and /help commands, safe logging, and single-service startup.\n\nFiles touched (21): .env.sample, DOCS.md, README.md, package.json, project.json, src/bot.js…\nValidation: ✅ project passes syntax/basic checks after this edit."
+    },
+    {
+      "role": "user",
+      "content": "Arrange the code properly in folders and file according to the components"
+    },
+    {
+      "role": "assistant",
+      "content": "Refactored the Telegram Points Wallet Mini App into backend repository/service/security/utils modules and frontend pages/components/services/styles while preserving /start, /help, MongoDB wallet behavior, Mini App auth, and single-service deployment.\n\nFiles touched (43): .env.sample, DOCS.md, README.md, package.json, src/app/server.js, src/bot.js…\nValidation: ✅ project passes syntax/basic checks after this edit."
     }
   ],
   "createdBy": "6a240b05a26af44cd0b34285",
@@ -318,12 +336,12 @@
       }
     },
     "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t": {
-      "phase": "status",
+      "phase": "reindex",
       "stage": "chat",
       "runId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t",
       "lastUserMessage": "Arrange the code properly in folders and file according to the components",
       "startedAt": "2026-06-06T12:01:15.637Z",
-      "updatedAt": "2026-06-06T12:16:38.888Z",
+      "updatedAt": "2026-06-06T12:19:58.197Z",
       "message": "Preparing workspace for safe edits…",
       "commands": [
         {
@@ -600,12 +618,12 @@
     }
   },
   "runStatus": {
-    "phase": "status",
+    "phase": "reindex",
     "stage": "chat",
     "runId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t",
     "lastUserMessage": "Arrange the code properly in folders and file according to the components",
     "startedAt": "2026-06-06T12:01:15.637Z",
-    "updatedAt": "2026-06-06T12:16:38.888Z",
+    "updatedAt": "2026-06-06T12:19:58.197Z",
     "message": "Preparing workspace for safe edits…",
     "commands": [
       {
@@ -884,8 +902,8 @@
     {
       "key": "TELEGRAM_BOT_TOKEN",
       "title": "Telegram Bot Token",
-      "description": "Required token used by grammY to run the Telegram bot and verify Mini App init data.",
-      "usage": "Read in src/lib/config.js and used by bot startup plus Telegram WebApp init data validation.",
+      "description": "Required token used by grammY to run the Telegram bot and verify Telegram WebApp init data.",
+      "usage": "Read in src/lib/config.js and used by bot startup plus Mini App auth verification.",
       "howToGet": "Create a bot with BotFather in Telegram.",
       "example": "123456789:ABCDEF...",
       "isSecret": true,
@@ -894,7 +912,7 @@
     {
       "key": "MONGODB_URI",
       "title": "MongoDB URI",
-      "description": "Required MongoDB connection string for persistent users, wallets, and transactions.",
+      "description": "Required MongoDB connection string for persistent wallet profiles and transaction history.",
       "usage": "Used by src/lib/db.js to create a shared MongoDB connection.",
       "howToGet": "Use your MongoDB Atlas or hosted MongoDB connection string.",
       "example": "mongodb+srv://user:password@cluster.example.mongodb.net/points-wallet",
@@ -905,8 +923,8 @@
       "key": "APP_BASE_URL",
       "title": "App Base URL",
       "description": "Optional public base URL used to build the Mini App dashboard button. Store the base URL only, not /app.",
-      "usage": "Read as a fallback in src/lib/config.js. The app appends /app in code.",
-      "howToGet": "Use the public URL of your deployed Render/CookMyBots service.",
+      "usage": "Read as a fallback in src/lib/config.js. The code appends /app.",
+      "howToGet": "Use the public URL of the deployed Node service.",
       "example": "https://your-service.onrender.com",
       "isSecret": false,
       "required": false
@@ -915,7 +933,7 @@
       "key": "PUBLIC_BASE_URL",
       "title": "Public Base URL",
       "description": "Optional CookMyBots-managed base URL alias for the deployed Mini App service.",
-      "usage": "Preferred managed URL source in src/lib/config.js before APP_BASE_URL fallback.",
+      "usage": "Read in src/lib/config.js before APP_BASE_URL fallback.",
       "howToGet": "Usually injected automatically by CookMyBots after deployment.",
       "example": "https://your-service.onrender.com",
       "isSecret": false,
@@ -930,26 +948,66 @@
       "example": "4000",
       "isSecret": false,
       "required": false
+    },
+    {
+      "key": "RENDER_EXTERNAL_URL",
+      "title": "Render External URL",
+      "description": "Optional Render-managed deployed base URL.",
+      "usage": "Read in src/lib/config.js as a managed Mini App base URL.",
+      "howToGet": "Usually injected by Render.",
+      "example": "https://your-service.onrender.com",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "WEBAPP_URL",
+      "title": "Web App URL Alias",
+      "description": "Optional compatibility alias for the deployed base URL.",
+      "usage": "Read in src/lib/config.js as a fallback only.",
+      "howToGet": "Only set if your deployment environment already provides it.",
+      "example": "https://your-service.onrender.com",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "WEB_APP_URL",
+      "title": "Web App URL Alias",
+      "description": "Optional compatibility alias for the deployed base URL.",
+      "usage": "Read in src/lib/config.js as a fallback only.",
+      "howToGet": "Only set if your deployment environment already provides it.",
+      "example": "https://your-service.onrender.com",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "PUBLIC_URL",
+      "title": "Public URL Alias",
+      "description": "Optional compatibility alias for the deployed base URL.",
+      "usage": "Read in src/lib/config.js as a fallback only.",
+      "howToGet": "Only set if your deployment environment already provides it.",
+      "example": "https://your-service.onrender.com",
+      "isSecret": false,
+      "required": false
     }
   ],
   "commandDocs": [
     {
       "command": "/start",
-      "description": "Creates or refreshes the Telegram user's Points Wallet profile and sends a Mini App dashboard button.",
+      "description": "Creates or refreshes the Telegram user's Points Wallet profile in MongoDB and sends a Mini App dashboard button.",
       "usage": "/start",
       "examples": [
-        "User: /start → Bot: Welcome. Your Points Wallet is ready. Open Points Dashboard."
+        "User: /start → Bot: Welcome. Your Points Wallet is ready. Open the Mini App dashboard to view your balance and transaction history."
       ],
-      "notes": "Requires MongoDB so the wallet profile can be persisted."
+      "notes": "The dashboard button opens the Mini App served by the same Node service at /app."
     },
     {
       "command": "/help",
-      "description": "Explains how users can open the Mini App to view points balance and transaction history.",
+      "description": "Explains that users can open the Mini App to view their points balance and transaction history.",
       "usage": "/help",
       "examples": [
         "User: /help → Bot: Points Wallet helps you view your points balance and transaction history."
       ],
-      "notes": "Only public commands are listed."
+      "notes": "Only /start and /help are public commands."
     }
   ]
 }
