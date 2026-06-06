@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { run } from "@grammyjs/runner";
-import { log, safeErr } from "./lib/log.js";
+import { safeErr } from "./utils/errors.js";
+import { log } from "./utils/logger.js";
 
 process.on("unhandledRejection", (err) => {
   log.error("process.unhandledRejection", { err: safeErr(err) });
@@ -64,6 +65,7 @@ async function boot() {
       telegramTokenSet: Boolean(cfg.TELEGRAM_BOT_TOKEN),
       mongodbUriSet: Boolean(cfg.MONGODB_URI),
       appBaseUrlSet: Boolean(cfg.APP_BASE_URL),
+      miniAppUrlSet: Boolean(cfg.MINI_APP_URL),
       portSet: Boolean(cfg.PORT),
     });
 
@@ -80,7 +82,7 @@ async function boot() {
     }
 
     const { connectDb, ensureIndexes } = await import("./lib/db.js");
-    const { startServer } = await import("./server.js");
+    const { startServer } = await import("./app/server.js");
     const { createBot } = await import("./bot.js");
 
     await connectDb();

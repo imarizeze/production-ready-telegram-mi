@@ -2,24 +2,12 @@
   "projectId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67",
   "commands": [
     {
-      "command": "/help",
-      "description": "Explains how users can open the Mini App to view points balance and transaction history.",
-      "usage": "/help",
-      "examples": [
-        "User: /help → Bot: Points Wallet helps you view your points balance and transaction history."
-      ],
-      "example": "User: /help → Bot: Points Wallet helps you view your points balance and transaction history.",
-      "notes": "Only public commands are listed."
+      "name": "help",
+      "file": "src/commands/help.js"
     },
     {
-      "command": "/start",
-      "description": "Creates or refreshes the Telegram user's Points Wallet profile and sends a Mini App dashboard button.",
-      "usage": "/start",
-      "examples": [
-        "User: /start → Bot: Welcome. Your Points Wallet is ready. Open Points Dashboard."
-      ],
-      "example": "User: /start → Bot: Welcome. Your Points Wallet is ready. Open Points Dashboard.",
-      "notes": "Requires MongoDB so the wallet profile can be persisted."
+      "name": "start",
+      "file": "src/commands/start.js"
     }
   ],
   "aiMessages": [
@@ -330,12 +318,12 @@
       }
     },
     "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t": {
-      "phase": "planning",
+      "phase": "status",
       "stage": "chat",
       "runId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t",
       "lastUserMessage": "Arrange the code properly in folders and file according to the components",
       "startedAt": "2026-06-06T12:01:15.637Z",
-      "updatedAt": "2026-06-06T12:16:38.971Z",
+      "updatedAt": "2026-06-06T12:16:38.888Z",
       "message": "Preparing workspace for safe edits…",
       "commands": [
         {
@@ -612,12 +600,12 @@
     }
   },
   "runStatus": {
-    "phase": "planning",
+    "phase": "status",
     "stage": "chat",
     "runId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t",
     "lastUserMessage": "Arrange the code properly in folders and file according to the components",
     "startedAt": "2026-06-06T12:01:15.637Z",
-    "updatedAt": "2026-06-06T12:16:38.971Z",
+    "updatedAt": "2026-06-06T12:16:38.888Z",
     "message": "Preparing workspace for safe edits…",
     "commands": [
       {

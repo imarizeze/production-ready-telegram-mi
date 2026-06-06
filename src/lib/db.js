@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 import { cfg } from "./config.js";
-import { log, safeErr } from "./log.js";
+import { safeErr } from "../utils/errors.js";
+import { log } from "../utils/logger.js";
 
 let client = null;
 let db = null;

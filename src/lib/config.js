@@ -30,7 +30,7 @@ export const cfg = {
   TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || "",
   MONGODB_URI: process.env.MONGODB_URI || "",
   PORT,
-  PUBLIC_BASE_URL: managedBase,
   APP_BASE_URL: appBase,
+  PUBLIC_BASE_URL: managedBase,
   MINI_APP_URL: appBase ? `${appBase}/app` : "",
 };

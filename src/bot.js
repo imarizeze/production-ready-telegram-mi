@@ -1,6 +1,7 @@
 import { Bot } from "grammy";
 import { registerCommands } from "./commands/loader.js";
-import { log, safeErr } from "./lib/log.js";
+import { safeErr } from "./utils/errors.js";
+import { log } from "./utils/logger.js";
 
 export async function createBot(cfg) {
   const bot = new Bot(cfg.TELEGRAM_BOT_TOKEN);
@@ -23,5 +24,6 @@ export async function createBot(cfg) {
     log.warn("telegram.commands.set.failure", { err: safeErr(err) });
   }
 
+  log.info("telegram.bot.configured", { commandsRegistered: true });
   return bot;
 }

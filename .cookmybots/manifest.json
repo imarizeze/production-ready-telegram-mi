@@ -330,12 +330,12 @@
       }
     },
     "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t": {
-      "phase": "planning",
+      "phase": "status",
       "stage": "chat",
       "runId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t",
       "lastUserMessage": "Arrange the code properly in folders and file according to the components",
       "startedAt": "2026-06-06T12:01:15.637Z",
-      "updatedAt": "2026-06-06T12:16:38.971Z",
+      "updatedAt": "2026-06-06T12:16:38.888Z",
       "message": "Preparing workspace for safe edits…",
       "commands": [
         {
@@ -612,12 +612,12 @@
     }
   },
   "runStatus": {
-    "phase": "planning",
+    "phase": "status",
     "stage": "chat",
     "runId": "ac25efe9-dab5-46fb-aa84-b377dfcbbe67:mq2bhxfr:ts0w3t",
     "lastUserMessage": "Arrange the code properly in folders and file according to the components",
     "startedAt": "2026-06-06T12:01:15.637Z",
-    "updatedAt": "2026-06-06T12:16:38.971Z",
+    "updatedAt": "2026-06-06T12:16:38.888Z",
     "message": "Preparing workspace for safe edits…",
     "commands": [
       {
